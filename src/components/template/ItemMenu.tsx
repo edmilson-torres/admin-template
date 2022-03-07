@@ -14,8 +14,7 @@ export default function ItemMenu(props: ItemMenuProps) {
       <a
         className={`
                 flex flex-col justify-center items-center
-                h-20 w-20
-              
+                h-20 box-content px-4
                 ${props.className}
             `}
       >
@@ -28,7 +27,7 @@ export default function ItemMenu(props: ItemMenuProps) {
     <li
       onClick={props.onClick}
       className={`
-    hover:bg-gray-100
+    hover:bg-gray-100 dark:hover:bg-gray-800
     cursor-pointer
 `}
     >
