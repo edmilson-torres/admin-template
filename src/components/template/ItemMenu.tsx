@@ -19,7 +19,7 @@ export default function ItemMenu(props: ItemMenuProps) {
             `}
       >
         {props.icon}
-        <span className={`text-xs font-light`}>{props.text}</span>
+        <span className={`text-xs font-light mt-2`}>{props.text}</span>
       </a>
     );
   }

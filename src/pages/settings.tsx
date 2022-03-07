@@ -4,7 +4,7 @@ export default function Settings() {
   return (
     <Layout
       title="Configurações"
-      subtitle="Aqui você irá gerenciar as suas notificações"
+      subtitle="Aqui você irá gerenciar as suas configurações"
     >
       <h3>Conteúdo</h3>
     </Layout>
