@@ -3,18 +3,36 @@ import Link from "next/link";
 interface ItemMenuProps {
   text: string;
   icon: any;
-  url: string;
+  url?: string;
+  className?: string;
+  onClick?: (evento: any) => void;
 }
 
 export default function ItemMenu(props: ItemMenuProps) {
+  function linkRender() {
+    return (
+      <a
+        className={`
+                flex flex-col justify-center items-center
+                h-20 w-20
+              
+                ${props.className}
+            `}
+      >
+        {props.icon}
+        <span className={`text-xs font-light`}>{props.text}</span>
+      </a>
+    );
+  }
   return (
-    <li className="hover:bg-gray-100">
-      <Link href={props.url}>
-        <a className="flex flex-col justify-center items-center w-full h-20">
-          {props.icon}
-          <span className="text-xs font-light text-gray-600">{props.text}</span>
-        </a>
-      </Link>
+    <li
+      onClick={props.onClick}
+      className={`
+    hover:bg-gray-100
+    cursor-pointer
+`}
+    >
+      {props.url ? <Link href={props.url}>{linkRender()}</Link> : linkRender()}
     </li>
   );
 }

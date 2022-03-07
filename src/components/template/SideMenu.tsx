@@ -24,7 +24,12 @@ export default function SideMenu() {
       </ul>
       <ul>
         {" "}
-        <ItemMenu text="Sair" icon={IconLogout} url={"/"} />
+        <ItemMenu
+          text="Sair"
+          icon={IconLogout}
+          className={"text-red-600 hover:bg-red-400 hover:text-white"}
+          onClick={() => console.log("logout")}
+        />
       </ul>
     </aside>
   );
