@@ -27,7 +27,7 @@ export default function ItemMenu(props: ItemMenuProps) {
     <li
       onClick={props.onClick}
       className={`
-    hover:bg-gray-100 dark:hover:bg-gray-800
+    hover:bg-gray-300 dark:hover:bg-gray-800
     cursor-pointer
 `}
     >

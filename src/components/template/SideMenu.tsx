@@ -19,7 +19,7 @@ export default function SideMenu() {
       </div>
       <ul className="flex-grow">
         <ItemMenu text="Início" icon={IconHome} url={"/"} />
-        <ItemMenu text="Configurações" icon={IconSettings} url={"/settings"} />
+        <ItemMenu text="Ajustes" icon={IconSettings} url={"/settings"} />
         <ItemMenu
           text="Notificações"
           icon={IconNotification}
