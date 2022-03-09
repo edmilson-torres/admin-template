@@ -8,6 +8,7 @@ import route from "next/router";
 interface AuthContextProps {
   user?: User;
   loading?: boolean;
+  register?: (email: string, senha: string) => Promise<void>;
   login?: (email: string, password: string) => Promise<void>;
   loginGoogle?: () => Promise<void>;
   logout?: () => Promise<void>;
@@ -51,6 +52,20 @@ export function AuthProvider(props) {
       cookieManager(false);
       setLoading(false);
       return false;
+    }
+  }
+
+  async function register(email: string, password: string) {
+    try {
+      setLoading(true);
+      const resp = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
+
+      await configSession(resp.user);
+      route.push("/");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -107,6 +122,7 @@ export function AuthProvider(props) {
       value={{
         user,
         loading,
+        register,
         login,
         loginGoogle,
         logout,
