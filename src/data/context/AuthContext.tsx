@@ -7,6 +7,7 @@ import route from "next/router";
 
 interface AuthContextProps {
   user?: User;
+  loading?: boolean;
   loginGoogle?: () => Promise<void>;
   logout?: () => Promise<void>;
 }
@@ -80,6 +81,8 @@ export function AuthProvider(props) {
     if (Cookies.get("auth-logged")) {
       const cancel = firebase.auth().onIdTokenChanged(configSession);
       return () => cancel();
+    } else {
+      setLoading(false);
     }
   }, []);
 
@@ -87,6 +90,7 @@ export function AuthProvider(props) {
     <AuthContext.Provider
       value={{
         user,
+        loading,
         loginGoogle,
         logout,
       }}
