@@ -8,6 +8,7 @@ import route from "next/router";
 interface AuthContextProps {
   user?: User;
   loading?: boolean;
+  login?: (email: string, password: string) => Promise<void>;
   loginGoogle?: () => Promise<void>;
   logout?: () => Promise<void>;
 }
@@ -53,6 +54,20 @@ export function AuthProvider(props) {
     }
   }
 
+  async function login(email: string, password: string) {
+    try {
+      setLoading(true);
+      const resp = await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password);
+
+      await configSession(resp.user);
+      route.push("/");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function loginGoogle() {
     try {
       setLoading(true);
@@ -72,6 +87,7 @@ export function AuthProvider(props) {
       setLoading(true);
       await firebase.auth().signOut();
       await configSession(null);
+      localStorage.removeItem("theme");
     } finally {
       setLoading(false);
     }
@@ -91,6 +107,7 @@ export function AuthProvider(props) {
       value={{
         user,
         loading,
+        login,
         loginGoogle,
         logout,
       }}

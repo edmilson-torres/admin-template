@@ -11,15 +11,15 @@ export default function AuthForce(props) {
     return (
       <>
         <Head>
-          <script>
-            dangerouslySetInnerHTML=
-            {{
+          <script
+            dangerouslySetInnerHTML={{
               __html: `
-                if(!document.cookie?inclues("auth-logged")){
-                window.location.href = "/auth"}
-              `,
+                                if(!document.cookie?.includes("auth-logged")) {
+                                    window.location.href = "/auth"
+                                }
+                            `,
             }}
-          </script>
+          />
         </Head>
         {props.children}
       </>
