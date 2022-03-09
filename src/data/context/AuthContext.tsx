@@ -8,6 +8,7 @@ import route from "next/router";
 interface AuthContextProps {
   user?: User;
   loginGoogle?: () => Promise<void>;
+  logout?: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextProps>({});
@@ -52,17 +53,34 @@ export function AuthProvider(props) {
   }
 
   async function loginGoogle() {
-    const resp = await firebase
-      .auth()
-      .signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    try {
+      setLoading(true);
+      const resp = await firebase
+        .auth()
+        .signInWithPopup(new firebase.auth.GoogleAuthProvider());
 
-    await configSession(resp.user);
-    route.push("/");
+      await configSession(resp.user);
+      route.push("/");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function logout() {
+    try {
+      setLoading(true);
+      await firebase.auth().signOut();
+      await configSession(null);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
-    const cancel = firebase.auth().onIdTokenChanged(configSession);
-    return () => cancel();
+    if (Cookies.get("auth-logged")) {
+      const cancel = firebase.auth().onIdTokenChanged(configSession);
+      return () => cancel();
+    }
   }, []);
 
   return (
@@ -70,6 +88,7 @@ export function AuthProvider(props) {
       value={{
         user,
         loginGoogle,
+        logout,
       }}
     >
       {props.children}

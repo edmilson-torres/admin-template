@@ -1,8 +1,11 @@
+import useAuth from "../../data/hook/useAuth";
 import { IconHome, IconLogout, IconNotification, IconSettings } from "../icons";
 import ItemMenu from "./ItemMenu";
 import Logo from "./Logo";
 
 export default function SideMenu() {
+  const { logout } = useAuth();
+
   return (
     <aside
       className="flex flex-col
@@ -34,7 +37,7 @@ export default function SideMenu() {
           className={
             "text-red-600 dark:text-red-500 hover:bg-red-400 hover:text-white dark:hover:text-white"
           }
-          onClick={() => console.log("logout")}
+          onClick={logout}
         />
       </ul>
     </aside>

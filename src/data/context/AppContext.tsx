@@ -1,10 +1,4 @@
-import {
-  createContext,
-  ReactChild,
-  ReactFragment,
-  ReactPortal,
-  useState,
-} from "react";
+import { createContext, useEffect, useState } from "react";
 
 type Theme = "dark" | "";
 
@@ -15,20 +9,19 @@ interface AppContextProps {
 
 const AppContext = createContext<AppContextProps>({});
 
-export function AppProvider(props: {
-  children:
-    | boolean
-    | ReactChild
-    | ReactFragment
-    | ReactPortal
-    | null
-    | undefined;
-}) {
-  const [theme, setTheme] = useState<Theme>("");
+export function AppProvider(props) {
+  const [theme, setTheme] = useState("dark");
 
   function toggleTheme() {
-    setTheme(theme === "" ? "dark" : "");
+    const newTheme = theme === "" ? "dark" : "";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
   }
+
+  useEffect(() => {
+    const themeSaved = localStorage.getItem("theme");
+    setTheme(themeSaved);
+  }, []);
 
   return (
     <AppContext.Provider value={{ theme, toggleTheme }}>
