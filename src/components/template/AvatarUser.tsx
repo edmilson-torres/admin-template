@@ -11,9 +11,8 @@ export default function AvatarUSer(props: AvatarUSerProps) {
     <Link href="/profile">
       <img
         src={user?.imageUrl ?? "/assets/images/avatar.svg"}
-        alt="Avatar do usuário"
         className={`
-        h-10 w-10 rounded-full cursor-pointer
+        h-10 w-10 rounded-full cursor-pointer ring-2 ring-gray-800 dark:ring-gray-200
         ${props.className}
         `}
       />
